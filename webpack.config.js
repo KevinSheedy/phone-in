@@ -14,7 +14,8 @@
     plugins: [
       new CleanWebpackPlugin(['dist']),
       new HtmlWebpackPlugin({
-        title: 'Development'
+        title: 'Development',
+        template: './src/index.html'
       })
     ],
     output: {
