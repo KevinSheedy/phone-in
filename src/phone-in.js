@@ -10,7 +10,6 @@ const lookup = countries.map(country => {
 });
 
 function PhoneIn(containerElem) {
-	console.log("phone-in containerElem", containerElem);
 	if (!containerElem) {
 		throw new Error("PhoneIn containerElem is not a valid <div>");
 	}
@@ -27,7 +26,6 @@ function PhoneIn(containerElem) {
 
 	const onChangeCountryCode = e => {
 		const text = e.srcElement.value.toLowerCase();
-		console.log("this.suggestionsDiv", this.suggestionsDiv);
 
 		if (text.length < 2) {
 			suggestionsDiv.style.display = "none";
@@ -36,19 +34,27 @@ function PhoneIn(containerElem) {
 			suggestionsDiv.innerHTML = "";
 			generateSuggestionDivs(text).forEach(div => {
 				suggestionsDiv.appendChild(div);
-			})
+			});
 		}
 	};
 
-	const generateSuggestionDivs =(text) => {
+	const generateSuggestionDivs = text => {
 		const suggestions = generateSuggestions(text);
+		return suggestions.map(country => generateSuggestionDiv(text, country));
+	};
 
-		return suggestions.map(suggestion => {
-			const div = document.createElement("div");
-			div.innerHTML = suggestion;
-			return div;
-		})
-	}
+	const generateSuggestionDiv = (text, country) => {
+		const template = `
+			  <div class="PhoneIn__Suggestion">
+			    <div class="PhoneIn__countryMatchingString">foo</div>
+			    <div class="PhoneIn__countryNonMatchingString">bar</div>
+
+			  </div>
+			`;
+		const div = document.createElement("div");
+		div.innerHTML = template;
+		return div;
+	};
 
 	const generateSuggestions = text => {
 		return lookup.filter(country => {
@@ -58,7 +64,6 @@ function PhoneIn(containerElem) {
 
 	const matchCountry = (text, countryArray) => {
 		const matches = countryArray.filter(str => str.startsWith(text));
-		console.log("matches", matches);
 		return matches.length >= 1;
 	};
 
