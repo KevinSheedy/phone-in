@@ -1,12 +1,13 @@
 import countries from "./countries.json";
 
+
 const MAX_SUGGESTIONS = 10;
 
 const lookup = countries.map(country => {
 	const { name, code } = country;
 
-	// ['Ireland', '353', '+353']
-	return [name.toLowerCase(), code, "+" + code];
+	// ['Ireland', '+353', '353']
+	return [name.toLowerCase(), "+" + code, code];
 });
 
 function PhoneIn(containerElem) {
@@ -44,11 +45,18 @@ function PhoneIn(containerElem) {
 	};
 
 	const generateSuggestionDiv = (text, country) => {
+		const displayString = country[0] + '&nbsp; ' + country[1];
+		const index = displayString.indexOf(text);
+		const endIndex = index + text.length;
+		const startText = displayString.substring(0, index);
+		const middleText = displayString.substring(index, endIndex);
+		const endText = displayString.substring(endIndex);
+		// const a = 'I'
 		const template = `
 			  <div class="PhoneIn__Suggestion">
-			    <div class="PhoneIn__countryMatchingString">foo</div>
-			    <div class="PhoneIn__countryNonMatchingString">bar</div>
-
+			    <span class="PhoneIn__startNotMatching">${startText} </span>
+			    <span class="PhoneIn__middleMatching">${middleText}</span>
+			    <span class="PhoneIn__endNotMatching">${endText}</span>
 			  </div>
 			`;
 		const div = document.createElement("div");
