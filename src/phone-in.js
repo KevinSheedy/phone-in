@@ -33,9 +33,22 @@ function PhoneIn(containerElem) {
 			suggestionsDiv.style.display = "none";
 		} else {
 			suggestionsDiv.style.display = "block";
-			suggestionsDiv.innerHTML = generateSuggestions(text);
+			suggestionsDiv.innerHTML = "";
+			generateSuggestionDivs(text).forEach(div => {
+				suggestionsDiv.appendChild(div);
+			})
 		}
 	};
+
+	const generateSuggestionDivs =(text) => {
+		const suggestions = generateSuggestions(text);
+
+		return suggestions.map(suggestion => {
+			const div = document.createElement("div");
+			div.innerHTML = suggestion;
+			return div;
+		})
+	}
 
 	const generateSuggestions = text => {
 		return lookup.filter(country => {
