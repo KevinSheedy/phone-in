@@ -1,3 +1,19 @@
+.PhoneIn__countryCodeSuggestions {
+
+	border-top: 1px solid gray;
+	border-left: 1px solid gray;
+	border-right: 1px solid gray;
+
+	display: none;
+}
+
+.PhoneIn__Suggestion {
+	/*height: 25px;*/
+	vertical-align: middle;
+	padding: 8px 0px 6px 8px;
+	border-bottom: 1px solid gray;
+}
+
 .PhoneIn__startNotMatching{
   /*margin-right: -4px;*/
 }

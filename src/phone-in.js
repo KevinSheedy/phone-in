@@ -16,13 +16,13 @@ function PhoneIn(containerElem) {
 	}
 
 	const countryCodeInput = containerElem.querySelector(
-		".phone-in__countryCode"
+		".PhoneIn__countryCode"
 	);
 	const phoneNumberInput = containerElem.querySelector(
-		".phone-in__phoneNumber"
+		".PhoneIn__phoneNumber"
 	);
 	const suggestionsDiv = containerElem.querySelector(
-		".phone-in__countryCodeSuggestions"
+		".PhoneIn__countryCodeSuggestions"
 	);
 
 	const onChangeCountryCode = e => {
