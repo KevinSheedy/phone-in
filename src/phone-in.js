@@ -1,3 +1,6 @@
-const foo = () => {
-	console.log('phone-in');
-}
+const PhoneIn = () => {
+	console.log("phone-in");
+};
+console.log("phone-in");
+
+export default PhoneIn;
