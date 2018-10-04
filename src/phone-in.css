@@ -1,27 +1,27 @@
 .PhoneIn__countryCodeSuggestions {
+  border-top: 1px solid gray;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
 
-	border-top: 1px solid gray;
-	border-left: 1px solid gray;
-	border-right: 1px solid gray;
-
-	display: none;
+  display: none;
 }
 
 .PhoneIn__Suggestion {
-	/*height: 25px;*/
-	vertical-align: middle;
-	padding: 8px 0px 6px 8px;
-	border-bottom: 1px solid gray;
+  /*height: 25px;*/
+  vertical-align: middle;
+  padding: 8px 0px 6px 8px;
+  border-bottom: 1px solid gray;
 }
 
-.PhoneIn__startNotMatching{
+.PhoneIn__startNotMatching {
   /*margin-right: -4px;*/
 }
 .PhoneIn__middleMatching {
-	text-decoration: underline;
+  text-decoration: underline;
   margin-right: -4px;
 }
 
-.PhoneIn__countryCode {
-	padding: 6px;
+.PhoneIn__countryCode,
+.PhoneIn__phoneNumber {
+  padding: 6px;
 }
