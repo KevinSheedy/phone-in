@@ -2,11 +2,15 @@ import countries from './countries.json';
 
 const MAX_SUGGESTIONS = 10;
 
-const lookup = countries.map(country => {
+const LOOKUP = countries.map(country => {
   const { name, code } = country;
 
-  // ['Ireland', '+353', '353']
-  return [name.toLowerCase(), '+' + code, code];
+  
+  return {
+    name,
+    code,
+    searchTerms: [name.toLowerCase(), '+' + code, code], // ['ireland', '+353', '353']
+  };
 });
 
 function PhoneIn(containerElem) {
@@ -32,6 +36,7 @@ function PhoneIn(containerElem) {
       suggestionsDiv.style.display = 'block';
       suggestionsDiv.innerHTML = '';
       generateSuggestionDivs(text).forEach(div => {
+        console.log('append');
         suggestionsDiv.appendChild(div);
       });
     }
@@ -43,7 +48,7 @@ function PhoneIn(containerElem) {
   };
 
   const generateSuggestionDiv = (text, country) => {
-    const displayString = country[0] + '&nbsp; ' + country[1];
+    const displayString = country.name + '&nbsp; +' + country.code;
     const index = displayString.indexOf(text);
     const endIndex = index + text.length;
     const startText = displayString.substring(0, index);
@@ -59,17 +64,18 @@ function PhoneIn(containerElem) {
       `;
     const div = document.createElement('div');
     div.innerHTML = template;
-    return div;
+    console.log('div', div.firstElementChild);
+    return div.firstElementChild;
   };
 
-  const generateSuggestions = text => {
-    return lookup.filter(country => {
-      return matchCountry(text, country);
+  const generateSuggestions = userText => {
+    return LOOKUP.filter(country => {
+      return matchCountry(userText, country.searchTerms);
     });
   };
 
-  const matchCountry = (text, countryArray) => {
-    const matches = countryArray.filter(str => str.startsWith(text));
+  const matchCountry = (userText, searchTerms) => {
+    const matches = searchTerms.filter(str => str.startsWith(userText));
     return matches.length >= 1;
   };
 
