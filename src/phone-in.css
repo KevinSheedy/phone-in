@@ -25,5 +25,14 @@
 
 .PhoneIn__countryCode,
 .PhoneIn__phoneNumber {
+  outline: 0px;
   padding: 6px;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+}
+
+.PhoneIn__countryCode:focus,
+.PhoneIn__phoneNumber:focus {
+  border-bottom: 1px solid lightblue;
 }
