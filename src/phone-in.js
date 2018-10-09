@@ -1,11 +1,11 @@
 import countries from './countries.json';
 
-const MAX_SUGGESTIONS = 10;
+// const MAX_SUGGESTIONS = 10;
 
 const LOOKUP = countries.map(country => {
   const { name, code } = country;
 
-  
+
   return {
     name,
     code,
@@ -19,7 +19,7 @@ function PhoneIn(containerElem) {
   }
 
   const countryCodeInput = containerElem.querySelector('.PhoneIn__countryCode');
-  const phoneNumberInput = containerElem.querySelector('.PhoneIn__phoneNumber');
+  // const phoneNumberInput = containerElem.querySelector('.PhoneIn__phoneNumber');
   const suggestionsDiv = containerElem.querySelector(
     '.PhoneIn__countryCodeSuggestions'
   );

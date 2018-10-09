@@ -23,6 +23,10 @@
   margin-right: -4px;
 }
 
+.PhoneIn__countryCode {
+  width: 80px;
+}
+
 .PhoneIn__countryCode,
 .PhoneIn__phoneNumber {
   outline: 0px;
