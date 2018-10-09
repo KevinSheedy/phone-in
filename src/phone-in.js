@@ -1,10 +1,14 @@
 import countries from './countries.json';
 
 // const MAX_SUGGESTIONS = 10;
+const KEYS = {
+  UP: 38,
+  DOWN: 40,
+  ESC: 27,
+};
 
 const LOOKUP = countries.map(country => {
   const { name, code } = country;
-
 
   return {
     name,
@@ -24,21 +28,77 @@ function PhoneIn(containerElem) {
     '.PhoneIn__countryCodeSuggestions'
   );
 
+  let highlightedIndex = -1;
+
   const onBlurCountryCode = e => {
-    suggestionsDiv.style.display = 'none';
+    hideSuggestions();
   };
   const onChangeCountryCode = e => {
-    const text = e.srcElement.value.toLowerCase();
+    const userText = e.srcElement.value.toLowerCase();
 
-    if (text.length < 2) {
-      suggestionsDiv.style.display = 'none';
+    if (userText.length < 2) {
+      hideSuggestions();
     } else {
-      suggestionsDiv.style.display = 'block';
-      suggestionsDiv.innerHTML = '';
-      generateSuggestionDivs(text).forEach(div => {
-        console.log('append');
-        suggestionsDiv.appendChild(div);
-      });
+      showSuggestions(userText);
+    }
+  };
+
+  const showSuggestions = userText => {
+    highlightedIndex = -1;
+    suggestionsDiv.style.display = 'block';
+    suggestionsDiv.innerHTML = '';
+    generateSuggestionDivs(userText).forEach(div => {
+      console.log('append');
+      suggestionsDiv.appendChild(div);
+    });
+    console.log('addEventListener');
+    document.addEventListener('keydown', onKeyPress, false);
+  };
+
+  const hideSuggestions = () => {
+    suggestionsDiv.style.display = 'none';
+    console.log('removeEventListener');
+    document.removeEventListener('keydown', onKeyPress, false);
+  };
+
+  const nextSuggestion = () => {
+    highlightedIndex += 1;
+    paintHightlightedSuggestion();
+  };
+
+  const previousSuggestion = () => {
+    highlightedIndex -= 1;
+    paintHightlightedSuggestion();
+  };
+
+  const paintHightlightedSuggestion = () => {
+    const suggestionElems = suggestionsDiv.querySelectorAll(
+      '.PhoneIn__Suggestion'
+    );
+    console.log('suggestionElems', suggestionElems);
+    console.log('highlightedIndex', highlightedIndex);
+  };
+
+  const onKeyPress = e => {
+    console.log('onKeyPress', e.keyCode);
+
+    const { UP, DOWN, ESC } = KEYS;
+
+    switch (e.keyCode) {
+      case UP:
+        console.log('UP');
+        previousSuggestion();
+        e.preventDefault();
+        break;
+      case DOWN:
+        console.log('DOWN');
+        nextSuggestion();
+        e.preventDefault();
+        break;
+      case ESC:
+        console.log('ESC');
+        hideSuggestions();
+        break;
     }
   };
 
