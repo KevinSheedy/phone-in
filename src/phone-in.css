@@ -40,3 +40,7 @@
 .PhoneIn__phoneNumber:focus {
   border-bottom: 1px solid lightblue;
 }
+
+.PhoneIn__Suggestion--hightlighted {
+  background-color: lightblue;
+}

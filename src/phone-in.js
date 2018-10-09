@@ -75,6 +75,16 @@ function PhoneIn(containerElem) {
     const suggestionElems = suggestionsDiv.querySelectorAll(
       '.PhoneIn__Suggestion'
     );
+
+    for (let i = 0; i < suggestionElems.length; i++) {
+      const currentElem = suggestionElems[i];
+      if ((highlightedIndex % suggestionElems.length) === i) {
+        currentElem.classList.add('PhoneIn__Suggestion--hightlighted');
+      } else {
+        currentElem.classList.remove('PhoneIn__Suggestion--hightlighted');
+      }
+    }
+
     console.log('suggestionElems', suggestionElems);
     console.log('highlightedIndex', highlightedIndex);
   };
