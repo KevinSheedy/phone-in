@@ -23,7 +23,9 @@ function PhoneIn(containerElem) {
     throw new Error('PhoneIn containerElem is not a valid <div>');
   }
 
-  const countryCodeInput = containerElem.querySelector('.PhoneIn__countryCode');
+  const _countryCodeInput = containerElem.querySelector(
+    '.PhoneIn__countryCode'
+  );
   // const phoneNumberInput = containerElem.querySelector('.PhoneIn__phoneNumber');
   const suggestionsDiv = containerElem.querySelector(
     '.PhoneIn__countryCodeSuggestions'
@@ -124,7 +126,12 @@ function PhoneIn(containerElem) {
   };
 
   const selectSuggestion = () => {
-    console.log('');
+    const choice = _suggestions[_highlightedIndex];
+    if (choice) {
+      _countryCodeInput.value = '+' + choice.code;
+      hideSuggestions();
+    }
+    console.log('choice', choice);
   };
 
   let _suggestions = [];
@@ -166,7 +173,7 @@ function PhoneIn(containerElem) {
     return matches.length >= 1;
   };
 
-  countryCodeInput.addEventListener('input', onChangeCountryCode, false);
-  countryCodeInput.addEventListener('blur', onBlurCountryCode, false);
+  _countryCodeInput.addEventListener('input', onChangeCountryCode, false);
+  _countryCodeInput.addEventListener('blur', onBlurCountryCode, false);
 }
 export default PhoneIn;
