@@ -5,6 +5,7 @@ const KEYS = {
   UP: 38,
   DOWN: 40,
   ESC: 27,
+  ENTER: 13,
 };
 
 const LOOKUP = countries.map(country => {
@@ -28,7 +29,7 @@ function PhoneIn(containerElem) {
     '.PhoneIn__countryCodeSuggestions'
   );
 
-  let highlightedIndex = -1;
+  let _highlightedIndex = -1;
 
   const onBlurCountryCode = e => {
     hideSuggestions();
@@ -44,7 +45,7 @@ function PhoneIn(containerElem) {
   };
 
   const showSuggestions = userText => {
-    highlightedIndex = -1;
+    _highlightedIndex = -1;
     suggestionsDiv.style.display = 'block';
     suggestionsDiv.innerHTML = '';
     generateSuggestionDivs(userText).forEach(div => {
@@ -62,12 +63,18 @@ function PhoneIn(containerElem) {
   };
 
   const nextSuggestion = () => {
-    highlightedIndex += 1;
+    _highlightedIndex += 1;
+    if (_highlightedIndex >= _suggestions.length) {
+      _highlightedIndex = -1;
+    }
     paintHightlightedSuggestion();
   };
 
   const previousSuggestion = () => {
-    highlightedIndex -= 1;
+    _highlightedIndex -= 1;
+    if (_highlightedIndex < -1) {
+      _highlightedIndex = _suggestions.length - 1;
+    }
     paintHightlightedSuggestion();
   };
 
@@ -78,7 +85,7 @@ function PhoneIn(containerElem) {
 
     for (let i = 0; i < suggestionElems.length; i++) {
       const currentElem = suggestionElems[i];
-      if ((highlightedIndex % suggestionElems.length) === i) {
+      if (i === _highlightedIndex) {
         currentElem.classList.add('PhoneIn__Suggestion--hightlighted');
       } else {
         currentElem.classList.remove('PhoneIn__Suggestion--hightlighted');
@@ -86,13 +93,13 @@ function PhoneIn(containerElem) {
     }
 
     console.log('suggestionElems', suggestionElems);
-    console.log('highlightedIndex', highlightedIndex);
+    console.log('_highlightedIndex', _highlightedIndex);
   };
 
   const onKeyPress = e => {
     console.log('onKeyPress', e.keyCode);
 
-    const { UP, DOWN, ESC } = KEYS;
+    const { UP, DOWN, ESC, ENTER } = KEYS;
 
     switch (e.keyCode) {
       case UP:
@@ -109,12 +116,22 @@ function PhoneIn(containerElem) {
         console.log('ESC');
         hideSuggestions();
         break;
+      case ENTER:
+        console.log('ENTER');
+        selectSuggestion();
+        break;
     }
   };
 
+  const selectSuggestion = () => {
+    console.log('');
+  };
+
+  let _suggestions = [];
+
   const generateSuggestionDivs = text => {
-    const suggestions = generateSuggestions(text);
-    return suggestions.map(country => generateSuggestionDiv(text, country));
+    _suggestions = generateSuggestions(text);
+    return _suggestions.map(country => generateSuggestionDiv(text, country));
   };
 
   const generateSuggestionDiv = (text, country) => {
