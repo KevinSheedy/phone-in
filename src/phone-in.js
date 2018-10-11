@@ -23,15 +23,16 @@ function PhoneIn(containerElem) {
     throw new Error('PhoneIn containerElem is not a valid <div>');
   }
 
+  let _highlightedIndex = -1;
+  let _suggestions = [];
   const _countryCodeInput = containerElem.querySelector(
     '.PhoneIn__countryCode'
   );
   // const phoneNumberInput = containerElem.querySelector('.PhoneIn__phoneNumber');
-  const suggestionsDiv = containerElem.querySelector(
+  const _suggestionsDiv = containerElem.querySelector(
     '.PhoneIn__countryCodeSuggestions'
   );
 
-  let _highlightedIndex = -1;
 
   const onBlurCountryCode = e => {
     hideSuggestions();
@@ -48,18 +49,18 @@ function PhoneIn(containerElem) {
 
   const showSuggestions = userText => {
     _highlightedIndex = -1;
-    suggestionsDiv.style.display = 'block';
-    suggestionsDiv.innerHTML = '';
+    _suggestionsDiv.style.display = 'block';
+    _suggestionsDiv.innerHTML = '';
     generateSuggestionDivs(userText).forEach(div => {
       console.log('append');
-      suggestionsDiv.appendChild(div);
+      _suggestionsDiv.appendChild(div);
     });
     console.log('addEventListener');
     document.addEventListener('keydown', onKeyPress, false);
   };
 
   const hideSuggestions = () => {
-    suggestionsDiv.style.display = 'none';
+    _suggestionsDiv.style.display = 'none';
     console.log('removeEventListener');
     document.removeEventListener('keydown', onKeyPress, false);
   };
@@ -81,7 +82,7 @@ function PhoneIn(containerElem) {
   };
 
   const paintHightlightedSuggestion = () => {
-    const suggestionElems = suggestionsDiv.querySelectorAll(
+    const suggestionElems = _suggestionsDiv.querySelectorAll(
       '.PhoneIn__Suggestion'
     );
 
@@ -133,8 +134,6 @@ function PhoneIn(containerElem) {
     }
     console.log('choice', choice);
   };
-
-  let _suggestions = [];
 
   const generateSuggestionDivs = text => {
     _suggestions = generateSuggestions(text);
