@@ -9,6 +9,7 @@
   vertical-align: middle;
   padding: 10px 0px 8px 9px;
   border-top: 1px solid #f8f8f8;
+  user-select: none;
 }
 
 .PhoneIn__Suggestion:first-child {
