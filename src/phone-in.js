@@ -23,15 +23,16 @@ function PhoneIn(containerElem) {
     throw new Error('PhoneIn containerElem is not a valid <div>');
   }
 
+  let _highlightedIndex = -1;
+  let _suggestions = [];
+  let _suggestionDivs = [];
   const _countryCodeInput = containerElem.querySelector(
     '.PhoneIn__countryCode'
   );
   // const phoneNumberInput = containerElem.querySelector('.PhoneIn__phoneNumber');
-  const _suggestionsDiv = containerElem.querySelector(
+  const _suggestionsContainer = containerElem.querySelector(
     '.PhoneIn__countryCodeSuggestions'
   );
-
-  let _highlightedIndex = -1;
 
   const onBlurCountryCode = e => {
     setTimeout(hideSuggestions, 500);
@@ -48,12 +49,12 @@ function PhoneIn(containerElem) {
 
   const showSuggestions = userText => {
     _highlightedIndex = -1;
-    _suggestionsDiv.style.display = 'block';
-    _suggestionsDiv.innerHTML = '';
+    _suggestionsContainer.style.display = 'block';
+    _suggestionsContainer.innerHTML = '';
     _suggestionDivs = generateSuggestionDivs(userText);
     _suggestionDivs.forEach(div => {
       console.log('add Click handler');
-      _suggestionsDiv.appendChild(div);
+      _suggestionsContainer.appendChild(div);
       div.addEventListener('mousedown', onMouseDownSuggestion, false);
       div.addEventListener('click', onMouseUpSuggestion, false);
     });
@@ -84,7 +85,7 @@ function PhoneIn(containerElem) {
   };
 
   const hideSuggestions = () => {
-    _suggestionsDiv.style.display = 'none';
+    _suggestionsContainer.style.display = 'none';
     console.log('removeEventListener');
     document.removeEventListener('keydown', onKeyPress, false);
   };
@@ -106,7 +107,7 @@ function PhoneIn(containerElem) {
   };
 
   const paintHightlightedSuggestion = () => {
-    const suggestionElems = _suggestionsDiv.querySelectorAll(
+    const suggestionElems = _suggestionsContainer.querySelectorAll(
       '.PhoneIn__Suggestion'
     );
 
@@ -162,9 +163,6 @@ function PhoneIn(containerElem) {
     _countryCodeInput.focus();
     console.log('choice', choice);
   };
-
-  let _suggestions = [];
-  let _suggestionDivs = [];
 
   const generateSuggestionDivs = text => {
     _suggestions = generateSuggestions(text);
