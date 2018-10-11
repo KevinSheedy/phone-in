@@ -158,6 +158,7 @@ function PhoneIn(containerElem) {
     const choice = _suggestions[_highlightedIndex];
     if (choice) {
       _countryCodeInput.value = '+' + choice.code;
+      _countryCodeInput.dispatchEvent(new window.Event('change'));
       hideSuggestions();
     }
     _countryCodeInput.focus();
