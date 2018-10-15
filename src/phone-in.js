@@ -1,6 +1,6 @@
 import countries from './countries.json';
 
-// const MAX_SUGGESTIONS = 10;
+const MAX_SUGGESTIONS = 10;
 const KEYS = {
   UP: 38,
   DOWN: 40,
@@ -162,7 +162,7 @@ function PhoneIn(containerElem) {
   };
 
   const generateSuggestionDivs = text => {
-    _suggestions = generateSuggestions(text);
+    _suggestions = generateSuggestions(text).slice(0, MAX_SUGGESTIONS);
     return _suggestions.map(country => generateSuggestionDiv(text, country));
   };
 
