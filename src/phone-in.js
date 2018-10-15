@@ -139,9 +139,23 @@ function PhoneIn(containerElem) {
     }
     const choice = _suggestions[_highlightedIndex];
     if (choice) {
-      _countryCodeInput.value = '+' + choice.code;
-      console.log("dispatch new Event('change')");
-      _countryCodeInput.dispatchEvent(new window.Event('change'));
+      const newInputValue = '+' + choice.code;
+
+      // This was necessary to trigger onChange events in react apps
+      var nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+        window.HTMLInputElement.prototype,
+        'value'
+      ).set;
+      nativeInputValueSetter.call(_countryCodeInput, newInputValue);
+
+      // Not sure if these lines are needed any more
+      const ev = new window.Event('input', { bubbles: true });
+      ev.simulated = true;
+      _countryCodeInput.dispatchEvent(ev);
+      const ev2 = new window.Event('change', { bubbles: true });
+      ev2.simulated = true;
+      _countryCodeInput.dispatchEvent(ev2);
+
       hideSuggestions();
     }
     _countryCodeInput.focus();
