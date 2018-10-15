@@ -53,12 +53,10 @@ function PhoneIn(containerElem) {
     _suggestionsContainer.innerHTML = '';
     _suggestionDivs = generateSuggestionDivs(userText);
     _suggestionDivs.forEach(div => {
-      console.log('add Click handler');
       _suggestionsContainer.appendChild(div);
       div.addEventListener('mousedown', onMouseDownSuggestion, false);
       div.addEventListener('click', onMouseUpSuggestion, false);
     });
-    console.log('addEventListener');
     document.addEventListener('keydown', onKeyPress, false);
   };
 
@@ -66,27 +64,20 @@ function PhoneIn(containerElem) {
     const selectedElem = e.currentTarget;
     // selectedElem.classList.add('PhoneIn__Suggestion--hightlighted');
 
-    console.log('_suggestionDivs', _suggestionDivs);
-    console.log('selectedElem', selectedElem);
-
     _suggestionDivs.forEach((div, i) => {
       if (div === selectedElem) {
-        console.log('boom', i);
         selectSuggestion(i);
       }
     });
     _countryCodeInput.focus();
-    console.log('onMouseDownSuggestion()');
   };
 
   const onMouseUpSuggestion = () => {
-    console.log('onMouseUpSuggestion');
     _countryCodeInput.focus();
   };
 
   const hideSuggestions = () => {
     _suggestionsContainer.style.display = 'none';
-    console.log('removeEventListener');
     document.removeEventListener('keydown', onKeyPress, false);
   };
 
@@ -119,33 +110,24 @@ function PhoneIn(containerElem) {
         currentElem.classList.remove('PhoneIn__Suggestion--hightlighted');
       }
     }
-
-    console.log('suggestionElems', suggestionElems);
-    console.log('_highlightedIndex', _highlightedIndex);
   };
 
   const onKeyPress = e => {
-    console.log('onKeyPress', e.keyCode);
-
     const { UP, DOWN, ESC, ENTER } = KEYS;
 
     switch (e.keyCode) {
       case UP:
-        console.log('UP');
         previousSuggestion();
         e.preventDefault();
         break;
       case DOWN:
-        console.log('DOWN');
         nextSuggestion();
         e.preventDefault();
         break;
       case ESC:
-        console.log('ESC');
         hideSuggestions();
         break;
       case ENTER:
-        console.log('ENTER');
         selectSuggestion();
         break;
     }
@@ -158,11 +140,11 @@ function PhoneIn(containerElem) {
     const choice = _suggestions[_highlightedIndex];
     if (choice) {
       _countryCodeInput.value = '+' + choice.code;
+      console.log("dispatch new Event('change')");
       _countryCodeInput.dispatchEvent(new window.Event('change'));
       hideSuggestions();
     }
     _countryCodeInput.focus();
-    console.log('choice', choice);
   };
 
   const generateSuggestionDivs = text => {
@@ -187,7 +169,6 @@ function PhoneIn(containerElem) {
       `;
     const div = document.createElement('div');
     div.innerHTML = template;
-    console.log('div', div.firstElementChild);
     return div.firstElementChild;
   };
 

@@ -26,7 +26,9 @@
 			<input type="text"
 				class="PhoneIn__countryCode"
 				placeholder="+353"
-				autofocus>
+				autofocus
+			  onchange="myFunction();"
+			>
 
 			<input class="PhoneIn__phoneNumber">
 
@@ -35,5 +37,12 @@
 			</div>
 		</div>
 	</div>
+
+	<script>
+		function myFunction() {
+		console.log('inside myFunction');
+			
+		}
+		</script>
 </body>
 </html>

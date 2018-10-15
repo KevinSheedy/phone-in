@@ -1,11 +1,11 @@
 {
   "name": "phone-in",
-  "version": "1.0.3",
+  "version": "1.0.8",
   "description": "",
-  "main": "dist/app.bundle.js",
+  "main": "src/phone-in.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
+    "build": "webpack --env.production",
     "server": "node server.js",
     "start": "webpack-dev-server --open"
   },
@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/KevinSheedy/phone-in.git"
   },
-  "files": ["dist"],
+  "files": ["dist", "src"],
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -44,7 +44,5 @@
     "webpack-dev-middleware": "^3.4.0",
     "webpack-dev-server": "^3.1.9"
   },
-  "dependencies": {
-    "lodash": "^4.17.11"
-  }
+  "dependencies": {}
 }
