@@ -1,5 +1,3 @@
-import countries from './countries.json';
-
 const MAX_SUGGESTIONS = 10;
 const KEYS = {
   UP: 38,
@@ -8,20 +6,21 @@ const KEYS = {
   ENTER: 13,
 };
 
-const LOOKUP = countries.map(country => {
-  const { name, code } = country;
-
-  return {
-    name,
-    code,
-    searchTerms: [name.toLowerCase(), '+' + code, code], // ['ireland', '+353', '353']
-  };
-});
-
-function PhoneIn(containerElem) {
+function PhoneIn(containerElem, countries) {
   if (!containerElem) {
     throw new Error('PhoneIn containerElem is not a valid <div>');
   }
+  countries = countries || require('./countries.json');
+
+  const _countries = countries.map(country => {
+    const { name, code } = country;
+
+    return {
+      name,
+      code,
+      searchTerms: [name.toLowerCase(), '+' + code, code], // ['ireland', '+353', '353']
+    };
+  });
 
   let _highlightedIndex = -1;
   let _suggestions = [];
@@ -49,7 +48,7 @@ function PhoneIn(containerElem) {
 
   const showSuggestions = userText => {
     _suggestionDivs = generateSuggestionDivs(userText);
-    if(_suggestionDivs.length <= 0) {
+    if (_suggestionDivs.length <= 0) {
       return;
     }
 
@@ -191,7 +190,7 @@ function PhoneIn(containerElem) {
   };
 
   const generateSuggestions = userText => {
-    return LOOKUP.filter(country => {
+    return _countries.filter(country => {
       return matchCountry(userText, country.searchTerms);
     });
   };
