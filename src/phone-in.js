@@ -48,10 +48,14 @@ function PhoneIn(containerElem) {
   };
 
   const showSuggestions = userText => {
+    _suggestionDivs = generateSuggestionDivs(userText);
+    if(_suggestionDivs.length <= 0) {
+      return;
+    }
+
     _highlightedIndex = -1;
     _suggestionsContainer.style.display = 'block';
     _suggestionsContainer.innerHTML = '';
-    _suggestionDivs = generateSuggestionDivs(userText);
     _suggestionDivs.forEach(div => {
       _suggestionsContainer.appendChild(div);
       div.addEventListener('mousedown', onMouseDownSuggestion, false);
