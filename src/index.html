@@ -6,43 +6,62 @@
 
 
 <head>
-	<title>PhoneIn</title>
+  <title>PhoneIn</title>
 
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
 
+
+  <style>
+    .PhoneIn__countryCode {
+      width: 80px;
+    }
+
+    .PhoneIn__countryCode,
+    .PhoneIn__phoneNumber {
+      outline: 0px;
+      padding: 6px;
+      border-top: 0px;
+      border-left: 0px;
+      border-right: 0px;
+    }
+
+    .PhoneIn__countryCode:focus,
+    .PhoneIn__phoneNumber:focus {
+      border-bottom: 1px solid lightblue;
+    }
+  </style>
 </head>
 
 <body>
-	<div>phone-in</div>
-	<br>
+  <div>phone-in</div>
+  <br>
 
 
-	<div id="MyPhoneElem"
-		class="PhoneIn__container">
+  <div id="MyPhoneElem"
+    class="PhoneIn__container">
 
-		<div>
+    <div>
 
-			<input type="text"
-				class="PhoneIn__countryCode"
-				placeholder="+353"
-				autofocus
-			  onchange="myFunction();"
-			>
+      <input type="text"
+        class="PhoneIn__countryCode"
+        placeholder="+353"
+        autofocus
+        onchange="myFunction();">
 
-			<input class="PhoneIn__phoneNumber">
+      <input class="PhoneIn__phoneNumber">
 
 
-			<div class="PhoneIn__countryCodeSuggestions">
-			</div>
-		</div>
-	</div>
+      <div class="PhoneIn__countryCodeSuggestions">
+      </div>
+    </div>
+  </div>
 
-	<script>
-		function myFunction() {
-		console.log('inside myFunction');
-			
-		}
-		</script>
+  <script>
+    function myFunction() {
+      console.log('inside myFunction');
+    }
+
+  </script>
 </body>
 </html>
