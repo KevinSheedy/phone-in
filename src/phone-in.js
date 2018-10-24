@@ -171,17 +171,16 @@ function PhoneIn(containerElem, countries) {
 
   const generateSuggestionDiv = (text, country) => {
     const displayString = country.name + '&nbsp; +' + country.code;
-    const index = displayString.indexOf(text);
+    const index = displayString.toLowerCase().indexOf(text.toLowerCase());
     const endIndex = index + text.length;
-    const startText = displayString.substring(0, index);
-    const middleText = displayString.substring(index, endIndex);
-    const endText = displayString.substring(endIndex);
-    // const a = 'I'
+    const preUnderlinedText = displayString.substring(0, index);
+    const underlinedText = displayString.substring(index, endIndex);
+    const postUnderlined = displayString.substring(endIndex);
     const template = `
         <div class="PhoneIn__Suggestion">
-          <span class="PhoneIn__startNotMatching">${startText} </span>
-          <span class="PhoneIn__middleMatching">${middleText}</span>
-          <span class="PhoneIn__endNotMatching">${endText}</span>
+          <span class="PhoneIn__startNotMatching">${preUnderlinedText} </span>
+          <span class="PhoneIn__middleMatching">${underlinedText}</span>
+          <span class="PhoneIn__endNotMatching">${postUnderlined}</span>
         </div>
       `;
     const div = document.createElement('div');
